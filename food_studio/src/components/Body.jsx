@@ -3,11 +3,10 @@ import Main from "./Main";
 import { useState, useEffect } from "react";
 import fetchData from "../utils/fetchData";
 const Body = () => {
-  const [searchValue, setSearchValue] = useState("");
-
   const [data, setData] = useState(null);
   const [filterData, setFilterData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [found, setFound] = useState(true);
   const [err, setErr] = useState(null);
 
   useEffect(() => {
@@ -16,18 +15,8 @@ const Body = () => {
 
   return (
     <>
-      <Nav
-         searchValue={searchValue}
-        setSearchValue={setSearchValue}
-        data={data}
-        setFilterData={setFilterData}
-      />
-      <Main
-       
-        loading={loading}
-        err={err}
-        filterData={filterData}
-      />
+      <Nav data={data} setFilterData={setFilterData} setFound={setFound}/>
+      <Main loading={loading} err={err} filterData={filterData} found={found}/>
     </>
   );
 };

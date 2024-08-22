@@ -1,12 +1,23 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
 import { db } from "../config/firebase";
-import { addDoc, collection } from "firebase/firestore";
-const AddAndUpdate = ({ onClose }) => {
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+const AddAndUpdate = ({ currentContact, onClose, isUpdate }) => {
+
   const addContact = async (contact) => {
     try {
+      console.log(contact);
       const contactRef = collection(db, "contacts");
       await addDoc(contactRef, contact);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateContact = async (contact, id) => {
+    try {
+      const contactRef = doc(db, "contacts", id);
+      await updateDoc(contactRef, contact);
+      onClose();
     } catch (error) {
       console.log(error);
     }
@@ -15,14 +26,23 @@ const AddAndUpdate = ({ onClose }) => {
     <>
       <div className="flex flex-col gap-3 p-2 mr-1 ">
         <Formik
-          initialValues={{
-            name: "",
-            email: "",
-          }}
+          initialValues={
+            isUpdate
+              ? {
+                  name: currentContact.name,
+                  email: currentContact.email,
+                }
+              : {
+                  name: "",
+                  email: "",
+                }
+          }
           onSubmit={(values) => {
             console.log(values);
-            addContact(values);
-            onclose(false);
+            isUpdate
+              ? updateContact(values, currentContact.id)
+              : addContact(values);
+            onClose(false);
           }}
         >
           <Form className="flex flex-col gap-2">
@@ -43,7 +63,7 @@ const AddAndUpdate = ({ onClose }) => {
                 className="bg-[#FCCA3F] px-3 py-2 rounded-lg font-bold"
                 type="submit"
               >
-                Add Contact
+                {isUpdate ? "update" : "Add Contact"}
               </button>
             </div>
           </Form>

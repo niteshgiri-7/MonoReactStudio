@@ -4,9 +4,11 @@ import Modal from "./Modal";
 import AddAndUpdate from "./AddAndUpdate";
 import NotFound from "./NotFound";
 import { collection, onSnapshot } from "firebase/firestore";
+
 import { db } from "../config/firebase";
 import { useEffect, useState } from "react";
 import useDisclouse from "../hooks/useDisclouse";
+import { ToastContainer, toast } from "react-toastify";
 
 const Body = () => {
   const [contacts, setContacts] = useState([]);
@@ -35,7 +37,7 @@ const Body = () => {
         setContacts(contactLists);
       });
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 
@@ -59,13 +61,13 @@ const Body = () => {
   };
 
   return (
-    <div className="flex justify-center bg-gray-600">
-      <div className="bg-[#323335] w-[455px] h-screen relative">
+    <div className="min-h-screen flex justify-center bg-gray-600">
+      <div className="bg-[#323335] w-[455px] min-h-full relative">
         <Nav onChanges={getSearch} onOpen={onOpen} />
         {contacts.length === 0 ? (
           <NotFound />
         ) : (
-          <div className="w-full flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             {contacts?.map((contact) => (
               <Contact
                 key={contact.id}
@@ -85,6 +87,7 @@ const Body = () => {
             currentContact={currentContact}
           />
         </Modal>
+        <ToastContainer position="top-center" />
       </div>
     </div>
   );

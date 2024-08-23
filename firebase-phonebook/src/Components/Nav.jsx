@@ -19,7 +19,6 @@ const Nav = ({ onChanges, onOpen }) => {
         />
         <FaPlusCircle
           onClick={() => {
-            console.log("Plus icon clicked");
             onOpen();
           }}
           className="text-4xl mt-1 cursor-pointer"

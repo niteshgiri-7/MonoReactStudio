@@ -1,3 +1,5 @@
 # Brand Page (project 1)
-- it is a **static brand page** where navbar and some brand information with a image is displayed .
+- I took it as a warm up project.
+- It features a nav bar with some brand info and an image
+- site live **[here](https://band-page.onrender.com/)**
   

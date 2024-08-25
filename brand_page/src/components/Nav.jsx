@@ -12,9 +12,7 @@ const Nav = () => {
         <li>About</li>
         <li>Contact</li>
       </ul>
-      <div className="bg-red-600 text-white px-4 py-2 rounded-md font-bold">
-        <Button name="Login"/>
-      </div>
+    <Button name="Login" bgColor="red" textColor="white"/>
     </div>
   );
 };

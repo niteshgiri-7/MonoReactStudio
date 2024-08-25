@@ -12,12 +12,10 @@ const HeroText = () => {
         FIND THE PERFECT FIT FOR YOUR FEET TODAY!
       </p>
       <div className="text-[25px] flex w-[80%] justify-items-start gap-10 mt-3">
-        <div className="bg-red-700 p-2 rounded-md text-white">
-          <Button name="Shop now" />
-        </div>
-        <div className="bg-gray-300 p-2 rounded-md text-gray-700">
-          <Button name="Category" />
-        </div>
+          <Button name="Shop now" bgColor="red" textColor="white"/>
+     
+          <Button name="Category" bgColor="gray" textColor="black" />
+      
       </div>
       <div className="text-[20px] mt-3 text-gray-700">
         <h3>Also Available On</h3>

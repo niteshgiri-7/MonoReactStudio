@@ -10,7 +10,7 @@ import ResetPw from "./components/ForgotPassword/ResetPw";
 import EmailSent from "./components/ForgotPassword/EmailSent";
 import ResetDone from "./components/ForgotPassword/ResetDone";
 import SuccessfulSignUp from "./components/Entrance/SuccessfulSignUp";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,35 +29,42 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path:"/email-verify",
-    element:<EmailVerify/>
+    path: "/email-verify",
+    element: <EmailVerify />,
   },
   {
-    path:"/signUp-successful",
-    element:<SuccessfulSignUp/>,
+    path: "/signUp-successful",
+    element: <SuccessfulSignUp />,
   },
   {
-    path:"/login",
-    element:<SignIn/>,
+    path: "/login",
+    element: <SignIn />,
   },
   {
-    path:"/forgot-password",
-    element:<ForgotPw/>
+    path: "/forgot-password",
+    element: <ForgotPw />,
   },
   {
-    path:"/email-sent",
-    element:<EmailSent/>,
+    path: "/email-sent",
+    element: <EmailSent />,
   },
   {
-    path:"/reset-done",
-    element:<ResetDone/>
-  }
+    path: "/reset-password",
+    element: <ResetPw />,
+  },
+  {
+    path: "/reset-done",
+    element: <ResetDone />,
+  },
 ]);
 
+const queryClient = new QueryClient();
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   );
 }

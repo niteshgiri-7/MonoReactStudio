@@ -1,20 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage, } from "formik";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import { signInFormSchema } from "../../utils/formSchema";
+import { signInUser } from "../../utils/queries/userQuery";
 
 const SignIn = () => {
-  const addUser = async (newUser) => {
-    console.log("calling server");
-    const response = await axios("http://localhost:9000/user/signin", newUser);
-    console.log("server replied\n",response);
-  };
-
-  const mutation = useMutation( {
-
-    mutationFn:addUser,
+  const { mutate } = useMutation({
+    mutationKey: ["signIn"],
+    mutationFn: signInUser,
     onSuccess: (data) => {
       console.log(data);
     },
@@ -23,10 +17,7 @@ const SignIn = () => {
     },
   });
 
-  const formValidationSchema = Yup.object().shape({
-    email: Yup.string().email("invalid email").required("Enter email"),
-    password: Yup.string().required("Enter password"),
-  });
+
   return (
     <div className="w-screen h-screen flex justify-center p-10 bg-gray-">
       <div className="w-full h-fit max-w-lg p-8 border border-gray-300 shadow-gray-400 shadow-md rounded-lg bg-white">
@@ -41,9 +32,9 @@ const SignIn = () => {
             email: "",
             password: "",
           }}
-          validationSchema={formValidationSchema}
+          validationSchema={signInFormSchema}
           onSubmit={(values) => {
-            mutation.mutate(values);
+            mutate(values);
           }}
         >
           <Form className="flex flex-col gap-6 mt-6">

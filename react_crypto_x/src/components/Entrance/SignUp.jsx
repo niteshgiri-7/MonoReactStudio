@@ -1,59 +1,27 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-
+import { signUpUser } from "../../utils/queries/userQuery";
+import { signUpFormSchema } from "../../utils/formSchema";
 const SignUp = () => {
+    
   const [emailError, setEmailError] = useState("");
-  const navigate = useNavigate()
-  // Function to sign up the user
-  const signUpUser = async (newUser) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:9000/user/signup",
-        newUser
-      );
-      console.log(response.data);
-      return response.data; // Return server response data
-    } catch (error) {
-      // Log and rethrow the error to handle it in onError
-      console.error(
-        "Error response:",
-        error.response ? error.response.data : error.message
-      );
-      return error;
-    }
-  };
+  const navigate = useNavigate();
+  const { mutate } = useMutation({
 
-  // Mutation to handle signup
-  const mutation = useMutation({
+    mutationKey: ["signUp"],
     mutationFn: signUpUser,
     onSuccess: (data) => {
-      if (data.status === 422) {
-     return   setEmailError("Email already exist");
-      }
-      navigate("/")
-      
+      console.log('SignUp Success:', data);
+      navigate("/email-verify")
     },
     onError: (error) => {
-      console.error(
-        "Error:",
-        error.response ? error.response.data : error.message
-      );
+      console.error('Mutation Error:', error.message);
+       console.log(error.message)
+       setEmailError(error.message)
     },
-  });
-
-  // Validation schema for the form
-  const formValidationSchema = Yup.object().shape({
-    firstName: Yup.string().required("Enter first name"),
-    lastName: Yup.string().required("Enter last name"),
-    email: Yup.string().email("Invalid email").required("Enter email"),
-    password: Yup.string().required("Enter password"),
-    repeatPassword: Yup.string()
-      .required("Retype password")
-      .oneOf([Yup.ref("password"), null], "Passwords must match"),
   });
 
   return (
@@ -73,10 +41,10 @@ const SignUp = () => {
             password: "",
             repeatPassword: "",
           }}
-          validationSchema={formValidationSchema}
+          validationSchema={signUpFormSchema}
           onSubmit={(values) => {
             const { url, repeatPassword, ...newValue } = values;
-            mutation.mutate(newValue);
+            mutate(newValue);
           }}
         >
           <Form className="flex flex-col gap-6 mt-6">

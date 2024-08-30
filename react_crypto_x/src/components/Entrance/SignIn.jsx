@@ -1,23 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useMutation } from "@tanstack/react-query";
+
 import { signInFormSchema } from "../../utils/formSchema";
-import { signInUser } from "../../utils/queries/userQuery";
 
 import Button from "../Button";
+import useAuth from "../../hooks/useAuth";
 const SignIn = () => {
-  
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["signIn"],
-    mutationFn: signInUser,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const { mutate, isPending, err } = useAuth("signIn");
 
   return (
     <div className="w-screen h-screen flex justify-center p-10 bg-gray-">
@@ -66,6 +56,7 @@ const SignIn = () => {
                   component="span"
                   className="text-red-500 text-sm"
                 />
+                <span className="text-red-500 text-sm">{err}</span>
               </div>
             </div>
             <div className="flex  justify-between gap-2 mt-4">
@@ -81,9 +72,9 @@ const SignIn = () => {
               </button>
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
-              <Button text="Login" isSpin={isPending}/>
+              <Button text="Login" isSpin={isPending} type="submit" />
               <Link to="/signUp">
-                <Button text="Create Account"/>
+                <Button text="Create Account" />
               </Link>
             </div>
           </Form>

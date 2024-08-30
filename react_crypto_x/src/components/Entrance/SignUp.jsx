@@ -1,28 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { signUpUser } from "../../utils/queries/userQuery";
-import { ReactComponent as Loader } from "../../assests/Loader.svg";
+import React from "react";
+import { Link } from "react-router-dom";
 import { signUpFormSchema } from "../../utils/formSchema";
 
 import Button from "../Button";
+import useAuth from "../../hooks/useAuth";
 const SignUp = () => {
-  const [emailError, setEmailError] = useState("");
-  const navigate = useNavigate();
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["signUp"],
-    mutationFn: signUpUser,
-    onSuccess: (data) => {
-      console.log("SignUp Success:", data);
-      navigate("/email-verify");
-    },
-    onError: (error) => {
-      console.error("Mutation Error:", error.message);
-      console.log(error.message);
-      setEmailError(error.message);
-    },
-  });
+  const { mutate, isPending, err } = useAuth("signUp");
 
   return (
     <div className="w-screen h-screen flex justify-center p-10 bg-gray-100">
@@ -89,7 +73,7 @@ const SignUp = () => {
                   component="span"
                   className="text-red-500 text-sm"
                 />
-                <span className="text-red-500 text-sm">{emailError}</span>
+                <span className="text-red-500 text-sm">{err}</span>
               </div>
               <div className="flex flex-col">
                 <label className="font-bold">Password</label>
@@ -129,7 +113,7 @@ const SignUp = () => {
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
               <div className="w-full flex flex-col">
-              <Button text="Create Account" isSpin={isPending}/>
+                <Button text="Create Account" isSpin={isPending} />
               </div>
               <h1 className="text-sm text-gray-600">
                 Already have an account?{" "}

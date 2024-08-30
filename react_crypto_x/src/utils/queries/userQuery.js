@@ -15,7 +15,7 @@ export const signInUser = async ({ email, password }) => {
   } catch (error) {
     console.log(error.response.data.message);
     console.error("Error during sign-in:", error);
-    throw Error(error);
+    throw Error(error.response.data.message);
   }
 };
 

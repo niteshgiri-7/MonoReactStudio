@@ -5,8 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { signInFormSchema } from "../../utils/formSchema";
 import { signInUser } from "../../utils/queries/userQuery";
 
+import Button from "../Button";
 const SignIn = () => {
-  const { mutate } = useMutation({
+  
+  const { mutate, isPending } = useMutation({
     mutationKey: ["signIn"],
     mutationFn: signInUser,
     onSuccess: (data) => {
@@ -16,7 +18,6 @@ const SignIn = () => {
       console.log(error);
     },
   });
-
 
   return (
     <div className="w-screen h-screen flex justify-center p-10 bg-gray-">
@@ -80,16 +81,9 @@ const SignIn = () => {
               </button>
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
-              <button
-                className="px-4 py-2 bg-gray-400 rounded-lg text-gray-700"
-                type="submit"
-              >
-                Log In
-              </button>
+              <Button text="Login" isSpin={isPending}/>
               <Link to="/signUp">
-                <button className="px-4 py-2 bg-gray-200 rounded-lg text-gray-900 w-full">
-                  Create New Account
-                </button>
+                <Button text="Create Account"/>
               </Link>
             </div>
           </Form>

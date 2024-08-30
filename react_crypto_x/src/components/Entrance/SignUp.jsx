@@ -5,7 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import { signUpUser } from "../../utils/queries/userQuery";
 import { ReactComponent as Loader } from "../../assests/Loader.svg";
 import { signUpFormSchema } from "../../utils/formSchema";
-import "../../assests/Loader.css";
+
+import Button from "../Button";
 const SignUp = () => {
   const [emailError, setEmailError] = useState("");
   const navigate = useNavigate();
@@ -128,13 +129,7 @@ const SignUp = () => {
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
               <div className="w-full flex flex-col">
-                <button
-                  className="px-4 py-2 bg-gray-400 rounded-lg text-gray-700 flex items-center justify-center"
-                  type="submit"
-                  disabled={isPending}
-                >
-                  {!isPending ? "Create Account":<Loader className="spinner " /> }
-                </button>
+              <Button text="Create Account" isSpin={isPending}/>
               </div>
               <h1 className="text-sm text-gray-600">
                 Already have an account?{" "}

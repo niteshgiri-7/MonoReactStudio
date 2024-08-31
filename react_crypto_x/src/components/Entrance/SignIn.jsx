@@ -66,10 +66,14 @@ const SignIn = () => {
                   Remember Me
                 </label>
               </div>
-
-              <button className="font-bold text-purple-600 cursor-pointer">
-                Forgot Password?
-              </button>
+              <Link to="/forgot-password">
+                <button
+                  className="font-bold text-purple-600 cursor-pointer"
+                  type="button"
+                >
+                  Forgot Password?
+                </button>
+              </Link>
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
               <Button text="Login" isSpin={isPending} type="submit" />

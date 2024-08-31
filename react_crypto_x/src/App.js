@@ -49,7 +49,7 @@ const router = createBrowserRouter([
     element: <EmailSent />,
   },
   {
-    path: "/reset-password",
+    path: "/forgot-password-verify/:token",
     element: <ResetPw />,
   },
   {

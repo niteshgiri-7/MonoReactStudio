@@ -3,7 +3,7 @@ import DashBoard from "./components/DashBoard/DashBoard";
 import Support from "./components/Support/Support";
 import Transaction from "./components/Transactions/Transaction";
 import SignUp from "./components/Entrance/SignUp";
-import EmailVerify from "./components/Entrance/EmailVerify";
+import RegisterEmail from "./components/Entrance/RegisterEmail";
 import SignIn from "./components/Entrance/SignIn";
 import ForgotPw from "./components/ForgotPassword/ForgotPw";
 import ResetPw from "./components/ForgotPassword/ResetPw";
@@ -29,11 +29,11 @@ const router = createBrowserRouter([
     element: <SignUp />,
   },
   {
-    path: "/email-verify",
-    element: <EmailVerify />,
+    path: "/register-email/:email",
+    element: <RegisterEmail />,
   },
   {
-    path: "/signUp-successful",
+    path: "/email-verify/:token",
     element: <SuccessfulSignUp />,
   },
   {

@@ -3,16 +3,20 @@ import { useState } from "react";
 import { signUpUser, signInUser } from "../utils/queries/userQuery";
 import { useNavigate } from "react-router-dom";
 
-const useAuth = (type) => {
+const useAuth = (type,email) => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
   const { mutate, isPending } = useMutation({
     mutationKey: [type],
     mutationFn: type === "signIn" ? signInUser : signUpUser,
     onSuccess: (data) => {
+
       console.log(`${type} success :`, data);
       if (type === "signUp") {
-        navigate("/email-verify");
+        navigate(`/register-email/${email}`);
+      }
+      else{
+        navigate("/")
       }
     },
     onError: (error) => {
@@ -21,7 +25,7 @@ const useAuth = (type) => {
     },
   });
 
-  return {mutate,isPending,err}
+  return { mutate, isPending, err };
 };
 
 export default useAuth;

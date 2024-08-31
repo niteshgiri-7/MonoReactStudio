@@ -4,8 +4,6 @@ const URL_USER = "/user";
 
 export const signInUser = async ({ email, password }) => {
   try {
-    console.log("Backend URL:", process.env.REACT_APP_BACKEND_URL);
-
     const { data } = await Axios.post(`${URL_USER}/signin`, {
       email,
       password,
@@ -25,9 +23,35 @@ export const signUpUser = async (user) => {
     const { data } = await Axios.post(`${URL_USER}/signup`, user);
     return data;
   } catch (error) {
-    console.error('SignUp Error:', error.response?.data || error.message);
-    
-    throw new Error(error.response?.data?.message || 'An unexpected error occurred');
+    console.error("SignUp Error:", error.response?.data || error.message);
+
+    throw new Error(
+      error.response?.data?.message || "An unexpected error occurred"
+    );
   }
 };
 
+export const sendVerificationEmail = async (email) => {
+  console.log("email", email);
+  try {
+    const { data } = await Axios.post(`${URL_USER}/send-verification-mail`, {
+      email,
+    });
+    return data;
+  } catch (error) {
+    throw Error(error.response?.data?.message || "An unexpected error occured");
+  }
+};
+
+export const verifyEmailAddressSignUp = async (token) => {
+  console.log("token", token);
+  try {
+    const { data } = await Axios.post(`${URL_USER}/verfiy-user-mail`, {
+      token,
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw Error(error.response?.data?.message || "An unexpected error occured");
+  }
+};

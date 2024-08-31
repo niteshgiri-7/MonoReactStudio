@@ -1,12 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signUpFormSchema } from "../../utils/formSchema";
 
 import Button from "../Button";
 import useAuth from "../../hooks/useAuth";
 const SignUp = () => {
-  const { mutate, isPending, err } = useAuth("signUp");
+  const [email, setEmail] = useState("");
+  const { mutate, isPending, err } = useAuth("signUp",email);
 
   return (
     <div className="w-screen h-screen flex justify-center p-10 bg-gray-100">
@@ -28,6 +29,7 @@ const SignUp = () => {
           validationSchema={signUpFormSchema}
           onSubmit={(values) => {
             const { url, repeatPassword, ...newValue } = values;
+            setEmail(values.email)
             mutate(newValue);
           }}
         >

@@ -58,18 +58,20 @@ export const verifyEmailAddressSignUp = async (token) => {
 
 export const forgotPassword = async (email) => {
   try {
-    const { data } = await Axios.post(`${URL_USER}/forgot-password`, {
+    const { data ,status} = await Axios.post(`${URL_USER}/forgot-password`, {
       email,
     });
-
+   console.log(status)
     return data;
   } catch (error) {
+    console.log(error)
     const err = error.response;
-    console.log(err.status);
-    if (err.status === 404) {
+    console.log(err?.status);
+    if (err?.status === 404) {
       throw Error("Unregistered Email");
     }
     throw Error(err?.data?.message || "An unexpected error occured");
+ 
   }
 };
 

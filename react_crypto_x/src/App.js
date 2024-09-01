@@ -11,22 +11,41 @@ import EmailSent from "./components/ForgotPassword/EmailSent";
 import ResetDone from "./components/ForgotPassword/ResetDone";
 import SuccessfulSignUp from "./components/Entrance/SuccessfulSignUp";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ProtectedRoute from "./components/AuthComponent/ProtectedRoute";
+import AlreadySignedIn from "./components/AuthComponent/AlreadySignedIn";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <DashBoard />,
+    element: (
+      <ProtectedRoute>
+        <DashBoard />,
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/support",
-    element: <Support />,
+    element: (
+      <ProtectedRoute>
+        <Support />,
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/transaction",
-    element: <Transaction />,
+    element: (
+      <ProtectedRoute>
+        <Transaction />,
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/signUp",
-    element: <SignUp />,
+    element: (
+      <AlreadySignedIn>
+        <SignUp />,
+      </AlreadySignedIn>
+    ),
   },
   {
     path: "/register-email/:email",
@@ -38,11 +57,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <SignIn />,
+    element: (
+      <AlreadySignedIn>
+        <SignIn />,
+      </AlreadySignedIn>
+    ),
   },
   {
     path: "/forgot-password",
-    element: <ForgotPw />,
+    element: (
+      <AlreadySignedIn>
+        <ForgotPw />
+      </AlreadySignedIn>
+    ),
   },
   {
     path: "/email-sent",

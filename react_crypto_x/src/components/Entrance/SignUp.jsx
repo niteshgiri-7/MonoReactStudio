@@ -115,7 +115,7 @@ const SignUp = () => {
             </div>
             <div className="flex flex-col gap-3 font-bold mt-6 text-center">
               <div className="w-full flex flex-col">
-                <Button text="Create Account" isSpin={isPending} />
+                <Button text="Create Account" isSpin={isPending} type="submit"/>
               </div>
               <h1 className="text-sm text-gray-600">
                 Already have an account?{" "}

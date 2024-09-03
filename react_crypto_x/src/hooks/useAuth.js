@@ -13,20 +13,25 @@ const useAuth = (type, email) => {
     mutationFn: type === "signIn" ? signInUser : signUpUser,
     onSuccess: (data) => {
       const { token } = data;
+      console.log(data);
+      console.log("sucess");
+      console.log(token);
       setErr("");
-      if (token) {
-        logIn(token);
-        console.log(`${type} success :`, data);
-        if (type === "signUp") {
-          navigate(`/register-email/${email}`);
-        } else {
-          navigate("/");
+     
+      if (type === "signUp") {
+        navigate(`/register-email/${email}`);
+      } else {
+        if (token) {
+          logIn(token);
+          console.log(`${type} success :`, data);
+        
+        navigate("/");
         }
       }
     },
     onError: (error) => {
       console.log(`${type} error :`, error);
-      setErr(type === "signIn" ? "Invalid email or password" : error.message);
+      setErr(error.message);
     },
   });
 

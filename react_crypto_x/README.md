@@ -1,10 +1,5 @@
-# react_cryptoX
+# ReactCryptoX
+*ReactCryptoX is a cryptocurrency dashboard built with React, featuring secure **user authentication with email verification** for sign-up and password recovery. The project utilizes **React Query** for efficient data fetching, and synchronization.It's combination with tailwindCSS  offers seamless user experience*
 
-- On progress
-- email ko state variable banaye
-- email lai onSubmit ma set garey
-- useAuth ma pass garera , on Success maa navigate garda navigate ko state ma haley
-- email verify componnet ma location bata email extract gare ani tei email render garyo
-- query run garney bela pani useEmailVerify maa tei email pass garyo 
 
 
